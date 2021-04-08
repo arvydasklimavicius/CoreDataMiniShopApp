@@ -1,4 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Order" representedClassName="Order" syncable="YES">
+        <attribute name="createdOn" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <relationship name="orderDiscounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OrderDiscount" inverseName="order" inverseEntity="OrderDiscount"/>
+        <relationship name="orderItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OrderItem" inverseName="order" inverseEntity="OrderItem"/>
+    </entity>
+    <entity name="OrderDiscount" representedClassName="OrderDiscount" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="Decimal" defaultValueString="0"/>
+        <attribute name="identifier" attributeType="String"/>
+        <attribute name="orderDiscountDescription" optional="YES" attributeType="String"/>
+        <attribute name="percentage" optional="YES" attributeType="Decimal" defaultValueString="0"/>
+        <relationship name="order" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Order" inverseName="orderDiscounts" inverseEntity="Order"/>
+    </entity>
+    <entity name="OrderItem" representedClassName="OrderItem" syncable="YES">
+        <attribute name="identifier" attributeType="String"/>
+        <attribute name="price" attributeType="Decimal" defaultValueString="0"/>
+        <attribute name="quantity" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="vatRate" optional="YES" attributeType="Decimal" defaultValueString="0"/>
+        <relationship name="discounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OrderItemDiscount" inverseName="orderitem" inverseEntity="OrderItemDiscount"/>
+        <relationship name="order" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Order" inverseName="orderItems" inverseEntity="Order"/>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="orderItem" inverseEntity="Product"/>
+    </entity>
+    <entity name="OrderItemDiscount" representedClassName="OrderItemDiscount" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="Decimal" defaultValueString="0"/>
+        <attribute name="identifier" attributeType="String"/>
+        <attribute name="itemDescription" optional="YES" attributeType="String"/>
+        <attribute name="percentage" optional="YES" attributeType="Decimal" defaultValueString="0"/>
+        <relationship name="orderitem" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OrderItem" inverseName="discounts" inverseEntity="OrderItem"/>
+    </entity>
+    <entity name="Product" representedClassName="Product" syncable="YES">
+        <attribute name="barcode" optional="YES" attributeType="String"/>
+        <attribute name="identifier" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="String" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="price" attributeType="Decimal" defaultValueString="0"/>
+        <attribute name="productDescription" optional="YES" attributeType="String"/>
+        <relationship name="orderItem" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OrderItem" inverseName="product" inverseEntity="OrderItem"/>
+    </entity>
+    <elements>
+        <element name="Order" positionX="-156.8882446289062" positionY="-234.5861206054688" width="128" height="89"/>
+        <element name="OrderDiscount" positionX="-231.6491088867188" positionY="-54.18060302734375" width="128" height="104"/>
+        <element name="OrderItem" positionX="54" positionY="144" width="128" height="134"/>
+        <element name="OrderItemDiscount" positionX="-434.1109008789062" positionY="144.427001953125" width="128" height="104"/>
+        <element name="Product" positionX="-416.412109375" positionY="-207.7790222167969" width="128" height="134"/>
+    </elements>
 </model>
